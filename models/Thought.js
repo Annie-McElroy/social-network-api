@@ -3,7 +3,7 @@ const moment = require('moment');
 
 const reactionSchema = new Schema(
     {
-        reactionID: {
+        reactionId: {
             type: Schema.Types.ObjectId,
             default: () => new Types.ObjectId(),
         },
@@ -19,8 +19,15 @@ const reactionSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: (timestamp) => moment(timestamp).format('MMM, Do, YYYY [at] HH:MM a'),
+            get: (timestamp) => moment(timestamp).format('MMM Do, YYYY [at] hh:mm a'),
         },
+    },
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true
+        },
+        id: false,
     }
 );
 
@@ -35,17 +42,18 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: (timestamp) => moment(timestamp).format('MMM, Do, YYYY [at] HH:MM a'),
+            get: (timestamp) => moment(timestamp).format('MMM Do, YYYY [at] hh:mm a'),
         },
         username: {
             type: String,
             required: true,
         },
-        reactions: [reactionSchema],
+        reactions: [ reactionSchema ],
     },
     {
         toJSON: {
             virtuals: true,
+            getters: true,
         },
         id: false,
     }
