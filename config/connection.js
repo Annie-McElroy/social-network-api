@@ -1,5 +1,8 @@
 const { connect, connection } = require('mongoose');
+require('dotenv').config();
 
-connect('mongodb+srv://Yuechan8522:AlexMac12@cluster0.kmtupzk.mongodb.net/socialNetworkDB');
+const connectionString = process.env.MONGODB_URI;
+
+connect(connectionString);
 
 module.exports = connection;
